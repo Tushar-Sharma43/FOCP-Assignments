@@ -1,0 +1,293 @@
+QUES 1
+#include <stdio.h>
+
+int main() {
+    int marks[] = {50, 65, 40, 72, 80};
+    int n = sizeof(marks) / sizeof(marks[0]);
+    
+    for (int i = 0; i < n; i++) {
+        marks[i] += 5;
+    }
+
+    for (int i = 0; i < n; i++) {
+        printf("%d ", marks[i]);
+    }
+    printf("\n");
+    
+    return 0;
+}
+QUES 2
+#include <stdio.h>
+
+int main() {
+    int marks[] = {85, 60, 45, 72, 30};
+    int n = sizeof(marks) / sizeof(marks[0]);
+    
+    for (int i = 0; i < n; i++) {
+        if (marks[i] >= 75)
+            printf("A Grade\n");
+        else if (marks[i] >= 60)
+            printf("B Grade\n");
+        else if (marks[i] >= 40)
+            printf("C Grade\n");
+        else
+            printf("D Grade\n");
+    }
+
+    return 0;
+}
+ QUES 3
+ #include <stdio.h>
+
+int main() {
+    int marks[] = {50, 65, 99, 72, 80};
+    int n = sizeof(marks) / sizeof(marks[0]);
+    
+    for (int i = 0; i < n; i++) {
+        if (marks[i] == 99) {
+            printf("First 99 scored by Student %d\n", i + 1);
+            break;
+        }
+    }
+    
+    return 0;
+}
+ QUES 4
+ #include <stdio.h>
+
+int main() {
+    int marks[] = {50, 99, 65, 99, 99};
+    int n = sizeof(marks) / sizeof(marks[0]);
+    int count = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (marks[i] == 99) {
+            printf("Student %d ", i + 1);
+            count++;
+        }
+    }
+
+    if (count == 0)
+        printf("-1");
+    printf("\nTotal students who scored 99: %d\n", count);
+    
+    return 0;
+}
+ QUES 5
+ #include <stdio.h>
+
+int main() {
+    int marks[] = {50, 65, 40, 72, 80};
+    int n = sizeof(marks) / sizeof(marks[0]);
+    int sum = 0;
+
+    for (int i = 0; i < n; i++) {
+        sum += marks[i];
+    }
+
+    printf("Sum of marks: %d\n", sum);
+    
+    return 0;
+}
+ QUES 6
+ #include <stdio.h>
+
+int main() {
+    int marks[] = {50, 65, 40, 72, 80};
+    int n = sizeof(marks) / sizeof(marks[0]);
+    int sum = 0;
+
+    for (int i = 0; i < n; i++) {
+        sum += marks[i];
+    }
+
+    float average = sum / (float)n;
+    printf("Average score: %.2f\n", average);
+    
+    return 0;
+}
+ QUES 7
+ #include <stdio.h>
+
+int main() {
+    int marks[] = {50, 65, 40, 72, 80};
+    int n = sizeof(marks) / sizeof(marks[0]);
+
+    for (int i = 0; i < n; i++) {
+        if (marks[i] % 2 == 0)
+            printf("Student %d's score %d is Even\n", i + 1, marks[i]);
+        else
+            printf("Student %d's score %d is Odd\n", i + 1, marks[i]);
+    }
+
+    return 0;
+}
+ QUES 8
+ #include <stdio.h>
+
+int main() {
+    int marks[] = {50, 65, 40, 72, 80};
+    int n = sizeof(marks) / sizeof(marks[0]);
+    int max = marks[0];
+    int min = marks[0];
+
+    for (int i = 1; i < n; i++) {
+        if (marks[i] > max) max = marks[i];
+        if (marks[i] < min) min = marks[i];
+    }
+
+    printf("Max score: %d\n", max);
+    printf("Min score: %d\n", min);
+    
+    return 0;
+}
+ QUES 9
+ #include <stdio.h>
+
+int main() {
+    int arr[] = {1, 3, 20, 4, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    for (int i = 1; i < n - 1; i++) {
+        if (arr[i] >= arr[i - 1] && arr[i] >= arr[i + 1]) {
+            printf("Peak element: %d at position %d\n", arr[i], i + 1);
+            break;
+        }
+    }
+    
+    return 0;
+}
+ QUES 10
+ #include <stdio.h>
+
+int is_prime(int num) {
+    if (num <= 1) return 0;
+    for (int i = 2; i * i <= num; i++) {
+        if (num % i == 0)
+            return 0;
+    }
+    return 1;
+}
+
+int main() {
+    int marks[] = {5, 10, 11, 15, 17};
+    int n = sizeof(marks) / sizeof(marks[0]);
+    int count = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (is_prime(marks[i])) {
+            count++;
+        }
+    }
+
+    printf("Number of prime numbers: %d\n", count);
+    
+    return 0;
+}
+ QUES 11
+ #include <stdio.h>
+
+int main() {
+    int arr[10] = {10, 20, 30, 40, 50};
+    int n = 5, value, position;
+
+    printf("Enter value to insert at front: ");
+    scanf("%d", &value);
+    for (int i = n; i >= 1; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[0] = value;
+    n++;
+
+    printf("Array after insertion at front: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    printf("Enter value and position to insert in between: ");
+    scanf("%d %d", &value, &position);
+    for (int i = n; i > position; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[position] = value;
+    n++;
+
+    printf("Array after insertion in between: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+QUES 12
+#include <stdio.h>
+
+int main() {
+    int arr[10] = {10, 20, 30, 40, 50};
+    int n = 5, position;
+
+    printf("Array before deletion: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    for (int i = 1; i < n; i++) {
+        arr[i - 1] = arr[i];
+    }
+    n--;
+    printf("Array after deletion from front: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+ QUES 13
+ #include <stdio.h>
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int temp = arr[n - 1];
+    
+    for (int i = n - 1; i > 0; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[0] = temp;
+
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    
+    return 0;
+}
+QUES 14
+#include <stdio.h>
+
+int main() {
+    int arr[] = {2, 10, 10, 100, 2, 10, 11, 2, 11, 2};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int found = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] == arr[j]) {
+                printf("%d ", arr[i]);
+                found = 1;
+                break;
+            }
+        }
+    }
+
+    if (!found) {
+        printf("-1");
+    }
+    printf("\n");
+    
+    return 0;
+}
