@@ -1,0 +1,212 @@
+QUES 1
+#include <stdio.h>
+
+int main() {
+    int num, sum = 0, temp, digit;
+    printf("provide an integer");
+    scanf("%d", &num);
+    temp = num;
+    while (temp != 0) {
+        digit = temp % 10;
+        sum += digit * digit * digit;
+        temp /= 10;
+    }
+    if (sum == num)
+        printf("Armstrong");
+    else
+        printf("Not Armstrong");
+    return 0;
+}
+ QUES 2
+ #include <stdio.h>
+
+int main() {
+    int a, b, hcf = 1;
+    printf("provide 2 integer:");
+    scanf("%d %d", &a, &b);
+    for (int i = 1; i <= a && i <= b; i++) {
+        if (a % i == 0 && b % i == 0)
+            hcf = i;
+    }
+    printf("%d", hcf);
+    return 0;
+}
+ QUES 3
+ #include <stdio.h>
+
+int main() {
+    int a, b;
+    scanf("%d %d", &a, &b);
+    while (b != 0) {
+        int sub = (~a) & b;
+        a = a ^ b;
+        b = sub << 1;
+    }
+    printf("%d", a);
+    return 0;
+}
+ QUES 4
+ PART 1
+ #include <stdio.h>
+
+int main() {
+    int a, b, temp;
+    scanf("%d %d", &a, &b);
+    temp = a;
+    a = b;
+    b = temp;
+    printf("%d %d", a, b);
+    return 0;
+}
+  PART 2
+  #include <stdio.h>
+
+int main() {
+    int a, b;
+    scanf("%d %d", &a, &b);
+    a = a + b;
+    b = a - b;
+    a = a - b;
+    printf("%d %d", a, b);
+    return 0;
+}
+  PART 3
+  #include <stdio.h>
+
+int main() {
+    int a, b;
+    scanf("%d %d", &a, &b);
+    a = a ^ b;
+    b = a ^ b;
+    a = a ^ b;
+    printf("%d %d", a, b);
+    return 0;
+}
+  PART 4
+  #include <stdio.h>
+
+int main() {
+    int a, b;
+    scanf("%d %d", &a, &b);
+    a = a * b;
+    b = a / b;
+    a = a / b;
+    printf("%d %d", a, b);
+    return 0;
+}
+ QUES 5
+ #include <stdio.h>
+
+int main() {
+    int num, sum = 0;
+    scanf("%d", &num);
+    for (int i = 1; i < num; i++) {
+        if (num % i == 0)
+            sum += i;
+    }
+    if (sum == num)
+        printf("Perfect Number");
+    else
+        printf("Not Perfect Number");
+    return 0;
+}
+ QUES 6
+ #include <stdio.h>
+
+int main() {
+    int x, y;
+    scanf("%d %d", &x, &y);
+    if (x > 0 && y > 0)
+        printf("First quadrant");
+    else if (x < 0 && y > 0)
+        printf("Second quadrant");
+    else if (x < 0 && y < 0)
+        printf("Third quadrant");
+    else if (x > 0 && y < 0)
+        printf("Fourth quadrant");
+    else
+        printf("On an axis");
+    return 0;
+}
+  QUES 7
+  PART 1
+  #include <stdio.h>
+
+int main() {
+    int binary, decimal = 0, base = 1;
+    scanf("%d", &binary);
+    while (binary > 0) {
+        decimal += (binary % 10) * base;
+        binary /= 10;
+        base *= 2;
+    }
+    printf("%d", decimal);
+    return 0;
+}
+  PART 2
+  #include <stdio.h>
+
+int main() {
+    int decimal, binary = 0, base = 1;
+    scanf("%d", &decimal);
+    while (decimal > 0) {
+        binary += (decimal % 2) * base;
+        decimal /= 2;
+        base *= 10;
+    }
+    printf("%d", binary);
+return 0;
+}
+QUES 8
+#include <stdio.h>
+
+int main() {
+    int n = 5;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++) {
+            if ((i + j) % 2 == 0)
+                printf("1");
+            else
+                printf("0");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+QUES 9
+#include <stdio.h>
+
+int main() {
+    int n = 5;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j < i; j++) {
+            printf("%d", j % 2);
+        }
+        printf(" ");
+        for (int j = 0; j < i; j++) {
+            printf("%d", j % 2);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+QUES 10
+#include <stdio.h>
+
+int main() {
+    int n = 5;
+    for (int i = 0; i < n; i++) {
+        int number = 1;
+        for (int j = 0; j <= i; j++) {
+            printf("%d ", number);
+            number = number * (i - j) / (j + 1);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+    return 0;
+}
+
+ 
