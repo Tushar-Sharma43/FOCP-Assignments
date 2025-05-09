@@ -1,0 +1,245 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <stdexcept>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+// ----------------------
+// Base Class: Person
+// ----------------------
+class Person {
+protected:
+    string name, id, contact;
+    int age;
+
+public:
+    // Constructor with basic validation
+    Person(string n, int a, string i, string c) {
+        setName(n);
+        setAge(a);
+        id = i;
+        contact = c;
+    }
+
+   
+    virtual void displayDetails() {
+        cout << "Name: " << name << ", Age: " << age << ", ID: " << id << ", Contact: " << contact << endl;
+    }
+
+    
+    virtual double calculatePayment() {
+        return 0.0; 
+    }
+
+    
+    void setName(string n) {
+        if (n.empty()) throw invalid_argument("Name cannot be empty.");
+        name = n;
+    }
+
+    void setAge(int a) {
+        if (a <= 0 || a > 120) throw invalid_argument("Age must be a positive number and realistic.");
+        age = a;
+    }
+
+ 
+    int getAge()
+     { return age;
+     }
+    string getName() { return name; }
+    string getId() { return id; }
+    string getContact() { return contact; }
+};
+
+// ----------------------
+// Derived Class: Student
+// ----------------------
+class Student : public Person {
+    string program;
+    string enrollmentDate;
+    float gpa;
+
+public:
+    Student(string n, int a, string i, string c, string prog, string eDate, float g)
+        : Person(n, a, i, c), program(prog), enrollmentDate(eDate) {
+        setGPA(g);
+    }
+
+    // GPA must be between 0.0 and 4.0
+    void setGPA(float g) {
+        if (g < 0.0 || g > 4.0) throw invalid_argument("GPA must be between 0.0 and 4.0.");
+        gpa = g;
+    }
+
+    float getGPA() { return gpa; }
+
+    // Overriding displayDetails for Student
+    void displayDetails() override {
+        Person::displayDetails();
+        cout << "Program: " << program << ", GPA: " << gpa << ", Enrolled: " << enrollmentDate << endl;
+    }
+
+    // Student pays a fixed tuition fee (for now)
+    double calculatePayment() override {
+        return 1000.0;
+    }
+};
+
+// ------------------------
+// Derived Class: Professor
+// ------------------------
+class Professor : public Person {
+    string department, specialization, hireDate;
+
+public:
+    Professor(string n, int a, string i, string c, string dept, string spec, string hDate)
+        : Person(n, a, i, c), department(dept), specialization(spec), hireDate(hDate) {}
+
+    void displayDetails() override {
+        Person::displayDetails();
+        cout << "Department: " << department << ", Specialization: " << specialization << ", Hired: " << hireDate << endl;
+    }
+
+    // Professors earn a salary
+    double calculatePayment() override {
+        return 5000.0;
+    }
+};
+
+// ------------------
+// Course Class
+// ------------------
+class Course {
+    string code, title, description;
+    int credits;
+
+public:
+    Course(string c, string t, int cr, string d) : code(c), title(t), description(d) {
+        setCredits(cr);
+    }
+
+    // Credits must be > 0
+    void setCredits(int c) {
+        if (c <= 0) throw invalid_argument("Credits must be positive.");
+        credits = c;
+    }
+
+    void display() {
+        cout << "Course: " << code << " - " << title << " (" << credits << " credits)" << endl;
+        cout << "Description: " << description << endl;
+    }
+};
+
+// ----------------------
+// Department Class
+// ----------------------
+class Department {
+    string name, location;
+    float budget;
+
+public:
+    Department(string n, string l, float b) : name(n), location(l), budget(b) {}
+};
+
+// ------------------------------------------
+// GradeBook – manages student grades in a course
+// ------------------------------------------
+class GradeBook {
+    map<string, float> grades;
+
+public:
+    void addGrade(string studentId, float grade) {
+        if (grade < 0 || grade > 100) throw invalid_argument("Grade must be between 0 and 100.");
+        grades[studentId] = grade;
+    }
+
+    float calculateAverageGrade() {
+        float total = 0;
+        for (auto& entry : grades) total += entry.second;
+        return grades.empty() ? 0 : total / grades.size();
+    }
+
+    float getHighestGrade() {
+        float maxGrade = 0;
+        for (auto& entry : grades) maxGrade = max(maxGrade, entry.second);
+        return maxGrade;
+    }
+
+    vector<string> getFailingStudents(float passMark = 40.0) {
+        vector<string> fails;
+        for (auto& entry : grades) {
+            if (entry.second < passMark) fails.push_back(entry.first);
+        }
+        return fails;
+    }
+};
+
+// ------------------------------------------
+// EnrollmentManager – tracks student enrollments
+// ------------------------------------------
+class EnrollmentManager {
+    map<string, vector<string>> courseEnrollments;
+
+public:
+    void enrollStudent(string courseCode, string studentId) {
+        courseEnrollments[courseCode].push_back(studentId);
+    }
+
+    void dropStudent(string courseCode, string studentId) {
+        auto& students = courseEnrollments[courseCode];
+        students.erase(remove(students.begin(), students.end(), studentId), students.end());
+    }
+
+    int getEnrollmentCount(string courseCode) {
+        return courseEnrollments[courseCode].size();
+    }
+};
+
+// ------------------------------------------
+// Test polymorphism with Person pointers
+// ------------------------------------------
+void testPolymorphism() {
+    cout << " Testing Polymorphism -----"<<endl;
+
+    vector<Person*> people;
+    people.push_back(new Student("Ashu", 20, "S01", "123", "CS", "2023-08", 3.5));
+    people.push_back(new Professor("mr strict", 45, "P01", "456", "gp", "cs hour", "2020-205"));
+
+    for (Person* p : people) {
+        p->displayDetails(); // Calls derived version automatically
+        cout << "Payment: $" << p->calculatePayment() << "\n\n";
+    }
+
+    
+    for (Person* p : people) delete p;
+}
+
+int main() {
+    try {
+        
+        
+        Course c1("xyz", " CS", 3, "gp and cs hour");
+        c1.display();
+
+        
+        GradeBook gb;
+        gb.addGrade("S01", 85.0);
+        gb.addGrade("S02", 45.0);
+        cout << "Average Grade: " << gb.calculateAverageGrade() << endl;
+
+       
+        EnrollmentManager em;
+        em.enrollStudent("CS101", "S01");
+        cout << "Enrollment in CS101: " << em.getEnrollmentCount("CS101") << endl;
+
+        
+        testPolymorphism();
+    }
+    catch (const exception& e) {
+        cerr << "\n Error occurred: " << e.what() << endl;
+    }
+
+    return 0;
+}
